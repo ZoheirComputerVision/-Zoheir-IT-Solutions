@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> خليل زهير | ماستر رياضيات و إعلام آلي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #FF6584;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #eaeaea;
+            --gradient: linear-gradient(135deg, #6C63FF, #FF6584);
+            --gradient2: linear-gradient(135deg, #0f3460, #533483);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            display: block;
+            -webkit-text-fill-color: var(--light);
+            opacity: 0.7;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 50px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient2);
+            z-index: -2;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--secondary);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            animation: fadeUp 1s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--primary);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: var(--gradient);
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 50px rgba(108, 99, 255, 0.3);
+        }
+       /* ===== CSS للصورة الشخصية ===== */
+        .hero-avatar img {
+            width: 100%;         /* اجعل الصورة تملأ عرض الحاوية (180px) */
+            height: 100%;        /* اجعل الصورة تملأ ارتفاع الحاوية (180px) */
+            object-fit: cover;   /* هذا هو الأهم: يقص الصورة لتناسب الدائرة دون تشويه */
+    border-radius: 50%;  /* تأكد من أنها دائرية */
+        }
+
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 50px rgba(108, 99, 255, 0.3); }
+            50% { box-shadow: 0 0 80px rgba(108, 99, 255, 0.6); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 30px;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(108, 99, 255, 0.2);
+            border: 1px solid rgba(108, 99, 255, 0.4);
+            transition: 0.3s;
+        }
+
+        .badge:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* ===== SECTIONS COMMON ===== */
+        section {
+            padding: 100px 50px;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 60px;
+        }
+
+        .section-title .highlight {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-line {
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .about-image .card .icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            color: rgba(255,255,255,0.7);
+            line-height: 2;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .education-card {
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--primary);
+            transition: 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateX(-10px);
+            background: rgba(108, 99, 255, 0.2);
+        }
+
+        .education-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .education-card .school {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .education-card .year {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        /* ===== SKILLS ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        .skill-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .skill-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 4px;
+            transition: width 1.5s ease;
+        }
+
+        /* ===== PORTFOLIO ===== */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .portfolio-card .thumb {
+            height: 200px;
+            background: var(--gradient2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .portfolio-card .info {
+            padding: 25px;
+        }
+
+        .portfolio-card .info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-card .info p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+        }
+
+        .portfolio-card .platform {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+            background: rgba(108, 99, 255, 0.2);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ===== SOCIAL LINKS ===== */
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-card {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #fff;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-card:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+
+        .social-card i {
+            font-size: 3rem;
+        }
+
+        .social-card span {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .facebook { background: linear-gradient(135deg, #1877F2, #0d5bbf); }
+        .youtube { background: linear-gradient(135deg, #FF0000, #cc0000); }
+        .instagram { background: linear-gradient(135deg, #E4405F, #833AB4); }
+        .tiktok { background: linear-gradient(135deg, #000, #25F4EE); }
+        .twitter { background: linear-gradient(135deg, #1DA1F2, #0d8bd9); }
+        .linkedin { background: linear-gradient(135deg, #0A66C2, #004182); }
+
+        /* ===== AI CHAT ===== */
+        .ai-fab {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: var(--gradient);
+            border: none;
+            color: #fff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.5);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ai-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.7);
+        }
+
+        .ai-chat {
+            position: fixed;
+            bottom: 110px;
+            left: 30px;
+            width: 380px;
+            max-height: 500px;
+            background: rgba(26, 26, 46, 0.98);
+            border-radius: 20px;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ai-chat.open {
+            display: flex;
+        }
+
+        .ai-header {
+            background: var(--gradient);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .ai-header .ai-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .ai-header h3 {
+            font-size: 1.1rem;
+        }
+
+        .ai-header p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .ai-close {
+            margin-right: auto;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        .ai-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 350px;
+        }
+
+        .ai-message {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-message.bot {
+            flex-direction: row-reverse;
+        }
+
+        .ai-message .bubble {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .ai-message.user .bubble {
+            background: var(--primary);
+            color: #fff;
+            border-bottom-left-radius: 5px;
+        }
+
+        .ai-message.bot .bubble {
+            background: rgba(255,255,255,0.1);
+            border-bottom-right-radius: 5px;
+        }
+
+        .ai-input-area {
+            padding: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-input-area input {
+            flex: 1;
+            padding: 12px 18px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .ai-input-area input::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+
+        .ai-input-area button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--gradient);
+            border: none;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .ai-input-area button:hover {
+            transform: scale(1.1);
+        }
+
+        .typing-indicator {
+            display: none;
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .typing-indicator.active {
+            display: flex;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0,0,0,0.3);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        footer p {
+            color: rgba(255,255,255,0.5);
+        }
+
+        footer .heart {
+            color: var(--secondary);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background: rgba(26, 26, 46, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                left: 20px;
+                bottom: 100px;
+            }
+
+            .social-card {
+                width: 120px;
+                height: 120px;
+            }
+
+            .social-card i {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        /* Counter Animation */
+        .counter {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .counter {
+            display: block;
+        }
+
+        .stat-item p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            Zoheir IT Solutions<span> صانع محتوى | أكثر من 20 سنة خبرة في مجال الإعلام الآلي </span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero" onclick="closeMenu()">الرئيسية</a></li>
+            <li><a href="#about" onclick="closeMenu()">من أنا</a></li>
+            <li><a href="#skills" onclick="closeMenu()">المهارات</a></li>
+            <li><a href="#portfolio" onclick="closeMenu()">أعمالي</a></li>
+            <li><a href="#social" onclick="closeMenu()">تواصل معي</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-avatar">
+                    <img src="https://i.imgur.com/zUS0jaQ.jpeg" alt="صورتي الشخصية">
+            </div>
+            <h1>مرحباً، أنا <span class="highlight">خليل زهير صانع محتوى</span> رقمي 🎯</h1>
+            <p class="subtitle">مطور برامج  | أحوّل الأفكار إلى محتوى رقمي مميز على  المواقع الإلكترونية و منصات التواصل الاجتماعي</p>
+
+            <div class="hero-badges">
+                <span class="badge"><i class="fas fa-graduation-cap"></i> ماستر رياضيات و إعلام آلي</span>
+                <span class="badge"><i class="fas fa-bolt"></i> بكالوريا إلكتروتقني دورة جوان 1996</span>
+                <span class="badge"><i class="fas fa-video"></i> صانع محتوى</span>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="#portfolio" class="btn btn-primary">
+                    <i class="fas fa-play"></i> شاهد أعمالي
+                </a>
+                <a href="#about" class="btn btn-outline">
+                    <i class="fas fa-user"></i> تعرف عليّ
+                </a>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-item">
+                    <span class="counter" data-target="10">0</span>
+                    <p>سنوات خبرة في المحتوى</p>
+                </div>
+                <div class="stat-item">
+                    <span class="counter" data-target="500">0</span>
+                    <p>فيديو منشور</p>
+                </div>
+                <div class="stat-item">
+                    <span class="counter" data-target="50000">0</span>
+                    <p>متابع</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about">
+        <h2 class="section-title reveal">من <span class="highlight">أنا؟</span> 👋</h2>
+        <div class="section-line"></div>
+
+        <div class="about-grid">
+            <div class="about-image reveal">
+                <div class="card">
+                    <div class="icon">🎓</div>
+                    <h3>رحلة أكاديمية مميزة</h3>
+                    <p>من متقنة الشاذلي قادة بفرندة إلى تخصص الإعلام الآلي إلى  عالم صناعة المحتوى الرقمي</p>
+                </div>
+            </div>
+
+            <div class="about-text reveal">
+                <h3>🧠 ماستر في الرياضيات والإعلام الآلي</h3>
+                <p>
+                    أنا صانع محتوى رقمي متخصص في إنشاء محتوى تعليمي وترفيهي على منصات التواصل الاجتماعي.
+                    أجمع بين خلفيتي الأكاديمية القوية في الرياضيات والإعلام الآلي وبين شغفي بصناعة المحتوى
+                    الذي يُلهم ويُفيد الجمهور العربي.
+                </p>
+
+                <div class="education-card">
+                    <h4>🎓 ماستر في الرياضيات والإعلام الآلي</h4>
+                    <p class="school">جامعة ___</p>
+                    <p class="year">الشهادة: ماستر</p>
+                </div>
+
+                <div class="education-card">
+                    <h4>⚡ بكالوريا إلكتروتقني</h4>
+                    <p class="school">متقنة الشاذلي قادة - فرندة</p>
+                    <p class="year">دورة جوان 1996</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" style="background: rgba(0,0,0,0.2);">
+        <h2 class="section-title reveal">مهاراتي <span class="highlight">وقدراتي</span> 💪</h2>
+        <div class="section-line"></div>
+
+        <div class="skills-grid">
+            <div class="skill-card reveal">
+                <div class="icon"><i class="fas fa-video"></i></div>
+                <h3>صناعة الفيديو</h3>
+                <p>إنشاء فيديوهات احترافية لمنصات التواصل الاجتماعي</p>
+                <div class="skill-bar">
+                    <div class="skill-bar-fill" style="width: 95%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card reveal">
+                <div class="icon"><i class="fas fa-pen-fancy"></i></div>
+                <h3>كتابة المحتوى</h3>
+                <p>كتابة سكريبتات ومنشورات تفاعلية وجذابة</p>
+                <div class="skill-bar">
+                    <div class="skill-bar-fill" style="width: 90%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card reveal">
+                <div class="icon"><i class="fas fa-chart-line"></i></div>
+                <h3>تحليل البيانات</h3>
+                <p>تحليل أداء المحتوى وتحسين النتائج</p>
+                <div class="skill-bar">
+                    <div class="skill-bar-fill" style="width: 85%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card reveal">
+                <div class="icon"><i class="fas fa-calculator"></i></div>
+                <h3>الرياضيات والبرمجة</h3>
+                <p>خلفية قوية في الرياضيات والإعلام الآلي</p>
+                <div class="skill-bar">
+                    <div class="skill-bar-fill" style="width: 92%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card reveal">
+                <div class="icon"><i class="fas fa-palette"></i></div>
+                <h3>التصميم الجرافيكي</h3>
+                <p>تصميم صور وشعارات للمحتوى الرقمي</p>
+                <div class="skill-bar">
+                    <div class="skill-bar-fill" style="width: 80%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card reveal">
+                <div class="icon"><i class="fas fa-hashtag"></i></div>
+                <h3>إدارة المنصات</h3>
+                <p>إدارة احترافية لحسابات التواصل الاجتماعي</p>
+                <div class="skill-bar">
+                    <div class="skill-bar-fill" style="width: 88%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section id="portfolio">
+        <h2 class="section-title reveal">أحدث <span class="highlight">أعمالي</span> 🎬</h2>
+        <div class="section-line"></div>
+
+        <div class="portfolio-grid">
+            <div class="portfolio-card reveal">
+                <div class="thumb" style="background: linear-gradient(135deg, #FF0000, #cc0000);">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <div class="info">
+                    <h3>سلسلة الرياضيات المبسطة</h3>
+                    <p>  شرح مبسط لمفاهيم رياضية معقدة بطريقة ممتعة وسهلة الفهم للطور الثانوي</p> 
+                    <span class="platform"><i class="fab fa-youtube"></i> يوتيوب</span>
+                </div>
+            </div>
+
+            <div class="portfolio-card reveal">
+                <div class="thumb" style="background: linear-gradient(135deg, #1877F2, #0d5bbf);">
+                    <i class="fab fa-facebook"></i>
+                </div>
+                <div class="info">
+                    <h3>إستشارة تقنية في مجال تكنولوجيا الإعلام والإتصال </h3>
+                    <p>نصائح وحيل تقنية في نظم المعلومات</p>
+                    <span class="platform"><i class="fab fa-facebook"></i> فيسبوك</span>
+                </div>
+            </div>
+
+            <div class="portfolio-card reveal">
+                <div class="thumb" style="background: linear-gradient(135deg, #E4405F, #833AB4);">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="info">
+                    <h3>محتوى بصري إبداعي</h3>
+                    <p>تصاميم ومحتوى بصري يجمع بين الفن والعلم</p>
+                    <span class="platform"><i class="fab fa-instagram"></i> إنستغرام</span>
+                </div>
+            </div>
+
+            <div class="portfolio-card reveal">
+                <div class="thumb" style="background: linear-gradient(135deg, #000, #25F4EE);">
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                <div class="info">
+                    <h3>فيديوهات قصيرة ترفيهية</h3>
+                    <p>محتوى قصير وممتع ينتشر بسرعة على تيك توك</p>
+                    <span class="platform"><i class="fab fa-tiktok"></i> تيك توك</span>
+                </div>
+            </div>
+
+            <div class="portfolio-card reveal">
+                <div class="thumb" style="background: linear-gradient(135deg, #0A66C2, #004182);">
+                    <i class="fab fa-linkedin"></i>
+                </div>
+                <div class="info">
+                    <h3>مقالات تقنية متخصصة</h3>
+                    <p>مقالات ومنشورات احترافية في مجال الإعلام الآلي</p>
+                    <span class="platform"><i class="fab fa-linkedin"></i> لينكدإن</span>
+                </div>
+            </div>
+
+            <div class="portfolio-card reveal">
+                <div class="thumb" style="background: linear-gradient(135deg, #1DA1F2, #0d8bd9);">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="info">
+                    <h3>تغريدات وآراء تقنية</h3>
+                    <p>مشاركة أفكار وآراء حول التقنية والتعليم الرقمي</p>
+                    <span class="platform"><i class="fab fa-twitter"></i> تويتر / X</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOCIAL ===== -->
+    <section id="social" style="background: rgba(0,0,0,0.2);">
+        <h2 class="section-title reveal">تابعني على <span class="highlight">المنصات</span> 📱</h2>
+        <div class="section-line"></div>
+
+        <div class="social-grid">
+            <a href="https://facebook.com/khallilzoheir/" target="_blank" class="social-card facebook reveal">
+                <i class="fab fa-facebook-f"></i>
+                <span>فيسبوك</span>
+            </a>
+            <a href="https://youtube.com/@zoheirforcomputervision2026" target="_blank" class="social-card youtube reveal">
+                <i class="fab fa-youtube"></i>
+                <span>يوتيوب</span>
+            </a>
+            <a href="https://instagram.com/yourpage" target="_blank" class="social-card instagram reveal">
+                <i class="fab fa-instagram"></i>
+                <span>إنستغرام</span>
+            </a>
+            <a href="https://tiktok.com/@yourpage" target="_blank" class="social-card tiktok reveal">
+                <i class="fab fa-tiktok"></i>
+                <span>تيك توك</span>
+            </a>
+            <a href="https://twitter.com/yourpage" target="_blank" class="social-card twitter reveal">
+                <i class="fab fa-x-twitter"></i>
+                <span>تويتر</span>
+            </a>
+            <a href="https://linkedin.com/in/yourpage" target="_blank" class="social-card linkedin reveal">
+                <i class="fab fa-linkedin-in"></i>
+                <span>لينكدإن</span>
+            </a>
+        </div>
+
+        <p class="reveal" style="text-align: center; margin-top: 40px; color: rgba(255,255,255,1.0);">
+            🔗 صل على رسول الله 
+        </p>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>صُنع بـ <span class="heart">❤️</span> و <span class="heart">🤖</span> بواسطة الذكاء الاصطناعي | جميع الحقوق محفوظة © 2025</p>
+    </footer>
+
+    <!-- ===== AI CHAT BOT ===== -->
+    <button class="ai-fab" id="aiFab" onclick="toggleAI()">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <div class="ai-chat" id="aiChat">
+        <div class="ai-header">
+            <div class="ai-avatar"><i class="fas fa-robot"></i></div>
+            <div>
+                <h3>المساعد الذكي 🤖</h3>
+                <p>مدعوم بالذكاء الاصطناعي | اسألني أي شيء</p>
+            </div>
+            <button class="ai-close" onclick="toggleAI()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="ai-messages" id="aiMessages">
+            <div class="ai-message bot">
+                <div class="bubble">
+                    مرحباً! 👋 أنا المساعد الذكي لصفحة صانع المحتوى. يمكنك سؤالي عن:
+                    <br><br>
+                    📌 سيرته المهنية<br>
+                    📌 شهاداته ودراسته<br>
+                    📌 منصات التواصل<br>
+                    📌 أعماله ومحتواه<br><br>
+                    كيف يمكنني مساعدتك؟ 😊
+                </div>
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <span></span><span></span><span></span>
+        </div>
+
+        <div class="ai-input-area">
+            <input type="text" id="aiInput" placeholder="اكتب سؤالك هنا..." onkeypress="if(event.key==='Enter')sendMessage()">
+            <button onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== NAVBAR SCROLL =====
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== MOBILE MENU =====
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // ===== REVEAL ON SCROLL =====
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // ===== COUNTER ANIMATION =====
+        const counters = document.querySelectorAll('.counter');
+        let counted = false;
+
+        const countUp = () => {
+            if (counted) return;
+            const heroSection = document.querySelector('.hero');
+            const rect = heroSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                counted = true;
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            counter.textContent = Math.ceil(current).toLocaleString('ar-DZ');
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target.toLocaleString('ar-DZ') + '+';
+                        }
+                    };
+
+                    updateCounter();
+                });
+            }
+        };
+
+        window.addEventListener('scroll', countUp);
+
+        // ===== AI CHAT =====
+        let aiOpen = false;
+
+        function toggleAI() {
+            aiOpen = !aiOpen;
+            document.getElementById('aiChat').classList.toggle('open');
+        }
+
+        const aiResponses = {
+            'من أنت': 'أنا المساعد الذكي 🤖 لهذه الصفحة! أنا هنا للإجابة على أسئلتك حول صاحب هذه الصفحة.',
+            'سيرة': 'خليل زهير هو صانع محتوى رقمي متخصص 🎬 حاصل على شهادة ماستر في الرياضيات والإعلام الآلي، وبكالوريا إلكتروتقني من متقنة الشاذلي قادة بفرندة دورة جوان 1996 🎓',
+            'ماستر': 'نعم! حاصل على شهادة ماستر في الرياضيات والإعلام الآلي 🎓 وهذا يعطيه خلفية قوية في التحليل والبرمجة والتفكير المنطقي.',
+            'بكالوريا': 'بكالوريا إلكتروتقني من متقنة الشاذلي قادة بفرندة، دورة جوان 1996 ⚡',
+            'فرندة': 'فرندة هي مدينة في ولاية تيارت بالجزائر 🇩🇿 وفيها المعهد التقني الشاذلي قادة حيث درس صاحب الصفحة.',
+            'فيسبوك': 'يمكنك متابعته على فيسبوك من الروابط الموجودة في قسم "تواصل معي" 📘',
+            'يوتيوب': 'قناته على يوتيوب مليئة بمحتوى تعليمي وترفيهي رائع! تابعه للاستفادة 🎬🔴',
+            'تيك توك': 'له حضور قوي على تيك توك بفيديوهات قصيرة وممتعة 🎵',
+            'أعمال': 'أعماله متنوعة: شرح رياضيات، نصائح تقنية، محتوى بصري إبداعي، ومقالات متخصصة 🎯',
+            'شكرا': 'العفو! 😊 سعيد بمساعدتك. لا تتردد في السؤال عن أي شيء آخر!',
+            'مرحبا': 'أهلاً وسهلاً! 👋 كيف يمكنني مساعدتك اليوم؟',
+            'هيلو': 'Hello! 👋 Welcome! How can I help you today?',
+            'صانع محتوى': 'نعم! هو صانع محتوى رقمي محترف 🎬 ينشر على فيسبوك، يوتيوب، إنستغرام، تيك توك، تويتر ولينكدإن.',
+        };
+
+        function getAIResponse(message) {
+            const msg = message.toLowerCase();
+
+            for (const [key, value] of Object.entries(aiResponses)) {
+                if (msg.includes(key.toLowerCase())) {
+                    return value;
+                }
+            }
+
+            if (msg.includes('رياضيات') || msg.includes('math')) {
+                return '📐 الرياضيات هي تخصصه الأساسي! حاصل على ماستر في الرياضيات والإعلام الآلي، ويشرح المفاهيم الرياضية بطريقة مبسطة وممتعة في محتواه 🧮';
+            }
+
+            if (msg.includes('إعلام آلي') || msg.includes('برمجة') || msg.includes('programming')) {
+                return '💻 الإعلام الآلي هو تخصصه الثاني! يجمع بين الرياضيات والبرمجة لإنشاء محتوى رقمي ذكي ومبتكر 🚀';
+            }
+
+            if (msg.includes('شاذلي') || msg.includes('معهد') || msg.includes('تقني')) {
+                return '🏫 درس في متقنة  الشاذلي قادة بفرندة، وتحصت على بكالوريا إلكتروتقني سنة 1996. هذه الخلفية التقنية ساعدته كثيراً في صناعة المحتوى ⚡';
+            }
+
+            return '🤔 سؤال مثير للاهتمام! يمكنني مساعدتك في معرفة المزيد عن: سيرته المهنية 📋، شهاداته 🎓، منصاته 📱، أو أعماله 🎬. جرّب أن تسألني بشكل أكثر تحديداً! 😊';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const messagesContainer = document.getElementById('aiMessages');
+
+            // User message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'ai-message user';
+            userDiv.innerHTML = `<div class="bubble">${message}</div>`;
+            messagesContainer.appendChild(userDiv);
+
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Typing indicator
+            const typing = document.getElementById('typingIndicator');
+            typing.classList.add('active');
+
+            // AI response after delay
+            setTimeout(() => {
+                typing.classList.remove('active');
+
+                const botDiv = document.createElement('div');
+                botDiv.className = 'ai-message bot';
+                botDiv.innerHTML = `<div class="bubble">${getAIResponse(message)}</div>`;
+                messagesContainer.appendChild(botDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000 + Math.random() * 1000);
+        }
+
+        // Quick questions
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add some quick question buttons
+            const quickQuestions = ['من أنت؟', 'ما هي شهاداتك؟', 'أين درست؟', 'ما هي منصاتك؟'];
+            // These can be added as clickable buttons if needed
+        });
+    </script>
+
+</body>
+</html>
